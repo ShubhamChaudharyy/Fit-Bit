@@ -2,6 +2,25 @@ import React ,{Component} from "react"
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+const Exercise=props=>(
+    <tr>
+        <td>
+            {props.exercise.username}
+        </td>
+        <td>
+            {props.exercise.description}
+        </td>
+        <td>
+            {props.exercise.duration}
+        </td>
+        <td>
+            {props.exercise.date}
+        </td>
+        <td>
+            <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a onClick={()=>props.deleteExercise(props.exercise._id)} href="/">delete</a>
+        </td>
+    </tr>
+)
 
 export default class ExercisesList extends Component{
     constructor(props)
@@ -10,6 +29,11 @@ export default class ExercisesList extends Component{
         this.deleteExercise=this.deleteExercise.bind(this)
         this.state={exercises:[]};
 
+    }
+    exerciseList(){
+        return this.state.exercises.map(current=>{
+            return <Exercise exercise={current} deleteExercise={this.deleteExercise} key={current._id}/>
+        })
     }
     componentDidMount()
     {
@@ -21,11 +45,46 @@ export default class ExercisesList extends Component{
             console.log(err);
         })
     }
+    deleteExercise(id)
+    {
+        axios.delete('http://localhost:5000/exercises/delete/'+id)
+        .then(res=>console.log(res.data))
+        this.setState({
+            exercise:this.state.exercises.filter(el=>el._id!==id),
+            hasBeenClicked: true
+
+        })
+    }
     render()
     {
         return(
             <div>
-                <p>you are on Exercise Log Page</p>
+                <h3>Logged Exercises</h3>
+                <table className="table">
+                    <thead className="thead-light">
+                        <tr>
+                            <th>
+                              Username  
+                            </th>
+                            <th>
+                                Description
+                                </th>
+                                <th>
+                                   Duration
+                                </th>
+                                <th>
+                                  Date
+                                </th>
+                                <th>
+                                Actions
+                                </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {this.exerciseList()}
+                    </tbody>
+                </table>
             </div>
         )
     }

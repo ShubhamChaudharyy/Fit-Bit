@@ -31,6 +31,8 @@ export default class CreateExercise extends Component{
                       username:response.data[0].username
                   })
               }
+          }).catch(err=>{
+              console.log(err)
           })
     }
     onChangeUsername(e)
@@ -91,9 +93,10 @@ export default class CreateExercise extends Component{
                         onChange={this.onChangeUsername}>
                            {
                                this.state.users.map(function(user){
-                                   return <option key={user} value={user}>
+                                   return <option 
+                                   key={user} value={user}>
                                        {user}
-                                   </option>
+                                   </option>;
                                })
                                
 
