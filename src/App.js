@@ -6,17 +6,21 @@ import Navbar from "./components/navbar.component"
 import ExercisesList from "./components/exercise.component"
 import EditExercise from "./components/edit.component"
 import CreateExercise from "./components/create.component"
-import CreateUser from "./components/"
+import CreateUser from "./components/user.component"
 function App() {
   return (
    <Router>
+     <div className="container">
   <Navbar/>
+  
         <br/>
-        <Route path="/" component={ExercisesList} />
+        <Route path="/" exact component={ExercisesList} />
         <Route path="/edit/:id"  component={EditExercise}/>
         <Route path="/create"  component={CreateExercise}/>
-        <Route path="/user" component={CreateUser}/>
+        <Route path="/User" component={CreateUser}/>
+        </div>
     </Router>
+    
   );
 }
 

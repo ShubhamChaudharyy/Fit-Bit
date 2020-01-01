@@ -10,7 +10,7 @@ const exerciseSchema=new Schema({
       trim:true,
       minlength:3
   },
-  exercisename:{
+  description:{
     type:String,
     required:true
   },

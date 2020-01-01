@@ -11,9 +11,9 @@ router.get('/',(req,res,next)=>{
 })
 router.post('/add',(req,res,next)=>{
     const username=req.body.username;
-    const exercisename=req.body.exercisename;
+    const description=req.body.description;
     const duration=req.body.duration;
-    const newUser=new Exercise({username,exercisename,duration});
+    const newUser=new Exercise({username,description,duration});
     newUser.save().then(()=>{
         res.json('User Added')
     }).catch(err=>{
